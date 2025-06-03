@@ -1,2 +1,7 @@
 # slack-drive-search
-Paris La Suite Numerique Hackathon - Slackbot to search drive
+
+https://github.com/suitenumerique
+
+Paris La Suite Numerique Hackathon - Slackbot to search Drive.
+
+
