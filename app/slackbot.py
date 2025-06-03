@@ -38,7 +38,9 @@ def handle_mention(body, say, logger):
 @app.command("/drive")
 def handle_some_command(ack, body, logger, say):
     ack()
+    search_text = body.get("text", "")
     logger.info(body)
+    say(f"searching for {search_text}")
     say("wooo!")
 
 
