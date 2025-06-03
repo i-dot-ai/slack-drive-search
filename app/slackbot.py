@@ -34,9 +34,7 @@ def handle_drive_command(ack, body, logger, say):
         list_results = response_dict["results"]
         number_results = len(list_results)
         logger.info(f"Number of results: {number_results}")
-        file_details = [
-            f"* {item['filename']}, {item['file_key']}" for item in list_results
-        ]
+        file_details = [f"- {item['file_key']}" for item in list_results]
         say(f"*{number_results} related docs found*")
         full_text_output = f"{'\n'.join(file_details)}"
         say(full_text_output)
