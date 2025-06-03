@@ -2,10 +2,13 @@ import os
 import logging
 
 from dotenv import load_dotenv
+import requests
 from slack_bolt import App
 from slack_bolt.adapter.socket_mode import SocketModeHandler
 
+
 logging.basicConfig(level=logging.DEBUG)
+
 
 load_dotenv()
 
@@ -13,41 +16,31 @@ load_dotenv()
 SLACK_APP_TOKEN = os.environ["SLACK_APP_TOKEN"]
 SLACK_BOT_TOKEN = os.environ["SLACK_BOT_TOKEN"]
 SLACK_SIGNING_SECRET = os.environ["SLACK_SIGNING_SECRET"]
-
+DRIVE_SEARCH_ENDPOINT = os.environ["DRIVE_SEARCH_ENDPOINT"]
 
 
 # Initializes your app with your bot token and socket mode handler
 app = App(token=SLACK_BOT_TOKEN)
 
 
-@app.message("hello")
-def message_hello(message, say):
-    # say() sends a message to the channel where the event was triggered
-    say(f"Here are the relevant contents of your Drive...")
-
-
-@app.event("app_mention")
-def handle_mention(body, say, logger):
-    user = body["event"]["user"]
-    # single logger call
-    # global logger is passed to listener
-    logger.debug(body)
-    say(f"{user} mentioned your app")
-
-
 @app.command("/drive")
-def handle_some_command(ack, body, logger, say):
+def handle_drive_command(ack, body, logger, say):
     ack()
     search_text = body.get("text", "")
     logger.info(body)
-    say(f"searching for {search_text}")
-    say("wooo!")
+    logger.info(f"Searching for {search_text}.")
+    url = f"{DRIVE_SEARCH_ENDPOINT}{search_text}"
+    response = requests.get(url)
+
+    if response.status_code == 200:
+        response_dict = response.json()
+        list_results = response_dict["results"]
+        file_details= [f"{l["filename"]}, {l["file_key"]}" for l in list_results]
+        full_text_output = f"Related docs from your drive \n: {'\n'.join(file_details)}"
+        say(full_text_output)
+    else:
+        say("ERROR!")
 
 
-
-# Start your app
 if __name__ == "__main__":
-    print("===========")
-    print(SLACK_APP_TOKEN)
-    print(SLACK_BOT_TOKEN)
     SocketModeHandler(app, SLACK_APP_TOKEN).start()

@@ -8,6 +8,7 @@ dependencies = [
     "flask>=3.1.1",
     "httpx>=0.28.1",
     "python-dotenv>=1.1.0",
+    "requests>=2.32.3",
     "slack>=0.0.2",
     "slack-bolt>=1.23.0",
     "slack-sdk>=3.35.0",
