@@ -451,6 +451,18 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/90/90/b5f37b4d4715d89a15700e3782ad0f71f5c454b8d403650e4e1abd37a071/slack-0.0.2.tar.gz", hash = "sha256:e0b0cd3ba730e81aa82eef0973a7970652b99f6445cb71a6dde1d29e6d13b051", size = 2455 }
 
 [[package]]
+name = "slack-bolt"
+version = "1.23.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "slack-sdk" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/a5/c9/7421458765061cb98e01a12d6cadc273ee35e75856b0073ec7c3efa5cf46/slack_bolt-1.23.0.tar.gz", hash = "sha256:3d2c3eb13131407a94f925eb22b180d352c2d97b808303ef92b7a46d6508c843", size = 130659 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/c8/48/6f435d702a680307488c7d8d3bd6e12552bbf2ff3e0eb67ccb7d0850d122/slack_bolt-1.23.0-py2.py3-none-any.whl", hash = "sha256:6d6ae39d80c964c362505ae4e587eed2b26dbc3a9f0cb76af1150c30fb670488", size = 229691 },
+]
+
+[[package]]
 name = "slack-drive-search"
 version = "0.1.0"
 source = { virtual = "." }
@@ -459,6 +471,7 @@ dependencies = [
     { name = "httpx" },
     { name = "python-dotenv" },
     { name = "slack" },
+    { name = "slack-bolt" },
     { name = "slack-sdk" },
     { name = "slackclient" },
 ]
@@ -469,6 +482,7 @@ requires-dist = [
     { name = "httpx", specifier = ">=0.28.1" },
     { name = "python-dotenv", specifier = ">=1.1.0" },
     { name = "slack", specifier = ">=0.0.2" },
+    { name = "slack-bolt", specifier = ">=1.23.0" },
     { name = "slack-sdk", specifier = ">=3.35.0" },
     { name = "slackclient", specifier = ">=2.9.4" },
 ]
